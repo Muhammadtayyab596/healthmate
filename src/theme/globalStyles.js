@@ -16,6 +16,7 @@ export default function GlobalStyles() {
           width: '100%',
           height: '100%',
           WebkitOverflowScrolling: 'touch',
+
         },
         body: {
           margin: 0,
@@ -38,6 +39,13 @@ export default function GlobalStyles() {
               margin: 0,
               WebkitAppearance: 'none',
             },
+            '&:hover fieldset': {
+              borderColor: 'red',
+            },
+            '*.Mui-focused': {
+              borderColor: 'transparent',
+              outline:'none',
+            }
           },
         },
         img: {

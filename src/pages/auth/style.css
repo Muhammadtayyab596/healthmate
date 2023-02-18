@@ -1,0 +1,30 @@
+/* .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #322B80 !important;
+} */
+
+/* .MuiFormLabel-root.Mui-focused {
+  color: #322B80 !important;
+} */
+
+/* .css-1u363aa-MuiInputBase-root-MuiOutlinedInput-root{
+  border-radius: 13px !important;
+  font-size: 15px;
+} */
+
+
+.css-1yf42gv-MuiButtonBase-root-MuiButton-root{
+  font-weight: 400;
+  /* background-color: #322B80; */
+  box-shadow: none;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 9px 0px;
+  background: linear-gradient(180deg, #528AC8 0%, #322B80 100%);
+  /* background: linear-gradient(180deg, #322B80 0%, #528AC8 100%); */
+}
+
+
+
+
+
+

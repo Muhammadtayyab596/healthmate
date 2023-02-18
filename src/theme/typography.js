@@ -1,5 +1,7 @@
 // ----------------------------------------------------------------------
 
+
+
 export function remToPx(value) {
   return Math.round(parseFloat(value) * 16);
 }
@@ -24,7 +26,7 @@ export function responsiveFontSizes({ sm, md, lg }) {
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = 'Public Sans, sans-serif'; // Google Font
+const FONT_PRIMARY = 'Poppins, sans-serif;'; // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
 const typography = {
@@ -33,10 +35,10 @@ const typography = {
   fontWeightMedium: 600,
   fontWeightBold: 700,
   h1: {
-    fontWeight: 800,
+    fontWeight: 500,
     lineHeight: 80 / 64,
-    fontSize: pxToRem(40),
-    ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
+    fontSize: pxToRem(20),
+    ...responsiveFontSizes({ sm: 52, md: 58, lg: 30 }),
   },
   h2: {
     fontWeight: 800,
