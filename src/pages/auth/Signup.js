@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CssBaseline from '@mui/material/CssBaseline';
 // import Link from '@mui/material/Link';
@@ -11,11 +11,11 @@ import Container from '@mui/material/Container';
 import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import { authContext } from '../../context/AuthContext';
 import Iconify from '../../components/iconify';
 import CustomButton from '../../components/Button/CustomButton';
 import logoImage from "../../assets/Images/logo-01.png"
 import "./style.css"
-
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -39,8 +39,20 @@ const CssTextField = styled(TextField)({
 export default function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setloading] = useState(false);
+  const { signup } = useContext(authContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log("data", data);
+  const onSubmit = (data) => {
+    setloading(true)
+    signup(data.email, data.password)
+      .then((res) => {
+        console.log(res)
+        setloading(false)
+      })
+      .catch((er) => {
+        console.log(er)
+      })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -156,14 +168,15 @@ export default function Signup() {
               type="submit"
               fullWidth
               variant="contained"
+              loading={loading}
               sx={{ mt: 3, mb: 2 }}
             />
 
-            <Box sx={{ textAlign: "center", mt:1 }} >
+            <Box sx={{ textAlign: "center", mt: 1 }} >
               <Link
                 to="/login"
                 variant="body2"
-                style={{ color: "#2065D1" , fontSize:15 }}
+                style={{ color: "#2065D1", fontSize: 15 }}
               >
                 Already have an account? Login
               </Link>

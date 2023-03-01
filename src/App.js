@@ -12,10 +12,10 @@ import { StyledChart } from './components/chart';
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ScrollToTop />
-      <StyledChart />
-      <Router />
-    </ThemeProvider>
+      <ThemeProvider>
+        <ScrollToTop />
+        <StyledChart />
+        <Router />
+      </ThemeProvider>
   );
 }

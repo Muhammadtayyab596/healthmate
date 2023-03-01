@@ -1,10 +1,11 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 
-const ButtonStyle = styled(Button)({
+const ButtonStyle = styled(LoadingButton)({
     boxShadow: 'none',
     fontWeight: 400,
     borderRadius: "10px",
@@ -17,9 +18,9 @@ const ButtonStyle = styled(Button)({
 
 
 function CustomButton(props) {
-    const {text , sx , type } = props;
+    const {text , sx , type , loading } = props;
     return (
-        <ButtonStyle sx={sx} type={type} >{text}</ButtonStyle>
+        <ButtonStyle sx={sx} type={type} loading={loading} >{text}</ButtonStyle>
     )
 }
 
