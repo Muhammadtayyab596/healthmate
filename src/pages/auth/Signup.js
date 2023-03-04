@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import CssBaseline from '@mui/material/CssBaseline';
-// import Link from '@mui/material/Link';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate  } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,11 +11,19 @@ import Container from '@mui/material/Container';
 import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import { authContext } from '../../context/AuthContext';
-import Iconify from '../../components/iconify';
-import CustomButton from '../../components/Button/CustomButton';
-import logoImage from "../../assets/Images/logo-01.png"
+import Alert from '@mui/material/Alert';
 import "./style.css"
+
+// Firebase
+import { doc, setDoc } from "firebase/firestore";
+import { authContext } from '../../context/AuthContext';
+import { db } from "../../firebase/index"
+// Components
+import logoImage from "../../assets/Images/logo-01.png"
+import CustomButton from '../../components/Button/CustomButton';
+import Iconify from '../../components/iconify';
+
+
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -37,20 +45,35 @@ const CssTextField = styled(TextField)({
 
 
 export default function Signup() {
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setloading] = useState(false);
+  const [error, setError] = useState("");
   const { signup } = useContext(authContext)
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }  } = useForm();
   const onSubmit = (data) => {
     setloading(true)
+    setError("")
     signup(data.email, data.password)
-      .then((res) => {
-        console.log(res)
-        setloading(false)
+      .then((userCredential) => {
+        const user = userCredential?.user;
+        setDoc(doc(db, 'user', user?.uid), {
+          email: data.email,
+          username: data.username,
+          userId: user.uid
+        })
+          .then((res) => {
+            setloading(false)
+            navigate("/login")
+          })
+          .catch((error) => {
+            setloading(false)
+            setError(error?.message)
+          })
       })
-      .catch((er) => {
-        console.log(er)
+      .catch((error) => {
+        setloading(false)
+        setError(error?.message)
       })
   }
 
@@ -87,11 +110,20 @@ export default function Signup() {
             sx={{
               textAlign: "center",
               mt: 2,
+              mb: 2
             }}
           >
             <Typography variant='h1' sx={{ color: "#424242" }}  >Sign Up</Typography>
             <Typography variant='body2' sx={{ color: "#A1A1A1", mt: 2 }} >create your account to continue</Typography>
           </Box>
+
+          {error && (
+            <Alert severity="error">{error}</Alert>
+          )}
+
+          {/* var original = "Mon 25-Jul-2011";
+          var result = original.substr(original.indexOf(" ") + 1); */}
+
           {/* Form */}
           <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
 

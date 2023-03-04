@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,12 +9,19 @@ import { TextField } from '@mui/material';
 import Container from '@mui/material/Container';
 import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
-import CustomButton from '../../components/Button/CustomButton';
-import logoImage from "../../assets/Images/logo-01.png"
 import "./style.css"
 
+// Firebase
+// import { doc, setDoc } from "firebase/firestore";
+import { authContext } from '../../context/AuthContext';
+// import { db } from "../../firebase/index"
 
+
+
+import CustomButton from '../../components/Button/CustomButton';
+import logoImage from "../../assets/Images/logo-01.png"
 import Iconify from '../../components/iconify';
 
 
@@ -39,10 +46,26 @@ const CssTextField = styled(TextField)({
 
 
 export default function Login() {
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [error, setError] = useState("");
+  const { login } = useContext(authContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) =>{
+
+  const onSubmit = (data) => {
+    setloading(true)
+    setError("")
+    login(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setloading(false)
+        navigate("/dashboard")
+      })
+      .catch((error) => {
+        setloading(false)
+        setError(error?.message)
+      })
   }
 
   return (
@@ -78,11 +101,17 @@ export default function Login() {
             sx={{
               textAlign: "center",
               mt: 2,
+              mb: 2,
             }}
           >
             <Typography variant='h1' sx={{ color: "#424242" }}  >Login</Typography>
             <Typography variant='body2' sx={{ color: "#A1A1A1", mt: 2 }} >Log in to your account to continue</Typography>
           </Box>
+
+          {error && (
+            <Alert severity="error">{error}</Alert>
+          )}
+
           {/* Form */}
           <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
 
@@ -141,6 +170,7 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
+              loading={loading}
               sx={{ mt: 3, mb: 2 }}
             />
 
