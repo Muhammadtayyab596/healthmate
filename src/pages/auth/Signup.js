@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
-
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link , useNavigate  } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -14,10 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import "./style.css"
 
-// Firebase
-import { doc, setDoc } from "firebase/firestore";
-import { authContext } from '../../context/AuthContext';
-import { db } from "../../firebase/index"
+// Services
+import { signup, setProfileData } from '../../services/authServices';
 // Components
 import logoImage from "../../assets/Images/logo-01.png"
 import CustomButton from '../../components/Button/CustomButton';
@@ -49,18 +46,17 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
-  const { signup } = useContext(authContext)
-  const { register, handleSubmit, formState: { errors }  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     setloading(true)
     setError("")
     signup(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential?.user;
-        setDoc(doc(db, 'user', user?.uid), {
+        setProfileData(user?.uid, {
           email: data.email,
           username: data.username,
-          userId: user.uid
+          userId: user?.uid
         })
           .then((res) => {
             setloading(false)
@@ -94,6 +90,7 @@ export default function Signup() {
             px: 4,
             bgcolor: "#fff",
             borderRadius: 5,
+            boxShadow: 3,
           }}
         >
           {/* Logo Box */}
@@ -220,3 +217,18 @@ export default function Signup() {
     </Container>
   );
 }
+
+
+// setDoc(doc(db, 'user', user?.uid), {
+//   email: data.email,
+//   username: data.username,
+//   userId: user.uid
+// })
+//   .then((res) => {
+//     setloading(false)
+//     navigate("/login")
+//   })
+//   .catch((error) => {
+//     setloading(false)
+//     setError(error?.message)
+//   })

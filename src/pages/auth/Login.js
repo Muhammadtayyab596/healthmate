@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -15,7 +16,8 @@ import "./style.css"
 
 // Firebase
 // import { doc, setDoc } from "firebase/firestore";
-import { authContext } from '../../context/AuthContext';
+// import { authContext } from '../../context/AuthContext';
+import { getProfileData, login } from '../../services/authServices';
 // import { db } from "../../firebase/index"
 
 
@@ -47,10 +49,10 @@ const CssTextField = styled(TextField)({
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
-  const { login } = useContext(authContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
@@ -58,9 +60,22 @@ export default function Login() {
     setError("")
     login(data.email, data.password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        setloading(false)
-        navigate("/dashboard")
+        const user = userCredential?.user;
+        console.log(user, "user")
+        getProfileData(user?.uid)
+          .then((res) => {
+            setloading(false)
+            const userData = res.data()
+            dispatch({
+              type: "LOGIN_USER",
+              payload: userData,
+            })
+          })
+          navigate("/dashboard/app")
+          .catch((error) => {
+            setloading(false)
+            setError(error?.message)
+          })
       })
       .catch((error) => {
         setloading(false)

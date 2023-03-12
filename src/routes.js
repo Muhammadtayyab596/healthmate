@@ -1,4 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import DashboardLayout from './layouts/dashboard';
 import Page404 from './pages/dashboard/Page404';
 import DashboardAppPage from './pages/dashboard/DashboardAppPage';
@@ -8,16 +9,22 @@ import Home from './pages/landing/Home';
 import About from './pages/landing/About';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
+import AuthGuard from './pages/auth/AuthGuard';
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  const { isLogin } = useSelector((state) => state.authreducer)
+  console.log(isLogin , "isLogin")
   const routes = useRoutes([
     {
       path: '/dashboard',
-      element: <DashboardLayout />,
+      element:
+        <AuthGuard isAuthenticated={isLogin}>
+          <DashboardLayout />
+        </AuthGuard>,
       children: [
-        { element: <Navigate to="/dashboard/app"/> , index: true },
+        { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
       ],
     },

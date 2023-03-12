@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect , useContext } from 'react';
+import { useEffect  } from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
@@ -14,7 +14,6 @@ import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
 import navConfig from './config';
-import { authContext } from '../../../context/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -37,8 +36,6 @@ Nav.propTypes = {
 
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
-  const { user } = useContext(authContext)
-  console.log(user)
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
