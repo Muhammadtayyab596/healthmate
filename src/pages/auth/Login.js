@@ -55,23 +55,24 @@ export default function Login() {
   const [error, setError] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data) => {  
     setloading(true)
     setError("")
     login(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential?.user;
-        console.log(user, "user")
+        localStorage.setItem("accessToken", user?.accessToken);
+        localStorage.setItem("userUid", user?.uid);
         getProfileData(user?.uid)
           .then((res) => {
             setloading(false)
             const userData = res.data()
+            navigate("/dashboard/app")
             dispatch({
               type: "LOGIN_USER",
               payload: userData,
             })
           })
-          navigate("/dashboard/app")
           .catch((error) => {
             setloading(false)
             setError(error?.message)
