@@ -10,12 +10,13 @@ import About from './pages/landing/About';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import AuthGuard from './pages/auth/AuthGuard';
+import GuestGard from './pages/auth/GuestGard';
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
   const { isLogin } = useSelector((state) => state.authreducer)
-  console.log(isLogin , "isLogin")
+  console.log(isLogin, "isLogin")
   const routes = useRoutes([
     {
       path: '/dashboard',
@@ -38,7 +39,9 @@ export default function Router() {
     },
     {
       path: 'login',
-      element: <Login />,
+      element: <GuestGard isAuthenticated={isLogin}>
+        <Login />,
+      </GuestGard>
     },
     {
       path: 'Sign-up',
