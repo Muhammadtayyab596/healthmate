@@ -30,18 +30,21 @@ export default function Router() {
       ],
     },
     {
+      path: '/login',
+      element: <GuestGard isAuthenticated={isLogin}>
+        <Login />
+      </GuestGard>,
+       children: [
+        { element: <Navigate to="/login" />, index: true },
+      ],
+    },
+    {
       path: '/',
       element: <Home />,
     },
     {
       path: 'about',
       element: <About />,
-    },
-    {
-      path: 'login',
-      element: <GuestGard isAuthenticated={isLogin}>
-        <Login />,
-      </GuestGard>
     },
     {
       path: 'Sign-up',

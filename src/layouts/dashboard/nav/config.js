@@ -1,4 +1,9 @@
 // component
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+import LocalPharmacyOutlinedIcon from '@mui/icons-material/LocalPharmacyOutlined';
+import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
+import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import SvgColor from '../../../components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -9,32 +14,27 @@ const navConfig = [
   {
     title: 'dashboard',
     path: '/dashboard/app',
-    icon: icon('ic_analytics'),
+    icon: <QueryStatsIcon />,
   },
   {
-    title: 'user',
+    title: 'Formula Comparison',
     path: '/dashboard/user',
-    icon: icon('ic_user'),
+    icon: <LocalPharmacyOutlinedIcon />,
   },
   {
-    title: 'product',
+    title: 'Price Comparison',
     path: '/dashboard/products',
-    icon: icon('ic_cart'),
+    icon: <PaymentsOutlinedIcon />,
   },
   {
-    title: 'blog',
+    title: 'Uses',
     path: '/dashboard/blog',
-    icon: icon('ic_blog'),
+    icon: <ManageSearchOutlinedIcon />,
   },
   {
-    title: 'login',
+    title: 'Profile',
     path: '/login',
-    icon: icon('ic_lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    icon: <Person2OutlinedIcon />,
   },
 ];
 

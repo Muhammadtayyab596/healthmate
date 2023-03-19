@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { NavLink as RouterLink } from 'react-router-dom';
 // @mui
 import { Box, List, ListItemText } from '@mui/material';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 //
 import { StyledNavItem, StyledNavItemIcon } from './styles';
 
@@ -44,7 +45,12 @@ function NavItem({ item }) {
         },
       }}
     >
-      <StyledNavItemIcon>{icon && icon}</StyledNavItemIcon>
+      <StyledNavItemIcon>
+        
+        {icon && icon}
+        {/* <AccessAlarmIcon /> */}
+      
+      </StyledNavItemIcon>
 
       <ListItemText disableTypography primary={title} />
 

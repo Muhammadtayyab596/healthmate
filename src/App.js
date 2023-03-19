@@ -23,23 +23,27 @@ export default function App() {
 
   useEffect(() => {
     // setTimeout(() => setloading(false), 2000)
-    // setloading(true)
+    setloading(true)
     const userId = localStorage.getItem("userUid")
     const accessToken = localStorage.getItem("accessToken")
     console.log(accessToken)
-    getProfileData(userId)
-      .then((res) => {
-        const userData = res.data()
-        // setloading(false)
-        dispatch({
-          type: "LOGIN_USER",
-          payload: userData,
+    if (accessToken) {
+      getProfileData(userId)
+        .then((res) => {
+          const userData = res.data()
+          setloading(false)
+          dispatch({
+            type: "LOGIN_USER",
+            payload: userData,
+          })
         })
-      })
-      .catch((error) => {
-        // setloading(false)
-        console.log(error)
-      })
+        .catch((error) => {
+          setloading(false)
+          console.log(error)
+        })
+    }else{
+      setloading(false)
+    }
 
   }, []);
 
