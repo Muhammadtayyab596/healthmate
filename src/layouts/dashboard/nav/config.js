@@ -18,12 +18,19 @@ const navConfig = [
   },
   {
     title: 'Formula Comparison',
-    path: '/dashboard/user',
+    path: '/dashboard/formula-comparison',
     icon: <LocalPharmacyOutlinedIcon />,
   },
+
+  {
+    title: 'User',
+    path: '/dashboard/user-page',
+    icon: <LocalPharmacyOutlinedIcon />,
+  },  
+
   {
     title: 'Price Comparison',
-    path: '/dashboard/products',
+    path: '/dashboard/price-comparison',
     icon: <PaymentsOutlinedIcon />,
   },
   {

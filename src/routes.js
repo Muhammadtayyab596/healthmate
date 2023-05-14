@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import DashboardLayout from './layouts/dashboard';
 import Page404 from './pages/dashboard/Page404';
 import DashboardAppPage from './pages/dashboard/DashboardAppPage';
-
+import FormulaComparison from './pages/dashboard/FormulaComparison';
+import PriceComparison from './pages/dashboard/PriceComparison';
 
 import Home from './pages/landing/Home';
+import UserPage from './pages/dashboard/UserPage';
 import About from './pages/landing/About';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
@@ -16,7 +18,6 @@ import GuestGard from './pages/auth/GuestGard';
 
 export default function Router() {
   const { isLogin } = useSelector((state) => state.authreducer)
-  console.log(isLogin, "isLogin")
   const routes = useRoutes([
     {
       path: '/dashboard',
@@ -27,6 +28,9 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
+        { path: 'formula-comparison', element: <FormulaComparison /> },
+        { path: 'price-comparison', element: <PriceComparison/> },
+        { path: 'user-page', element: <UserPage/> },
       ],
     },
     {

@@ -39,10 +39,11 @@ function NavItem({ item }) {
       to={path}
       sx={{
         '&.active': {
-          color: 'text.primary',
+          color: '#f6f5f0',
           bgcolor: 'action.selected',
           fontWeight: 'fontWeightBold',
         },
+        color:"#f6f5f0",
       }}
     >
       <StyledNavItemIcon>
