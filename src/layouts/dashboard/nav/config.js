@@ -22,11 +22,11 @@ const navConfig = [
     icon: <LocalPharmacyOutlinedIcon />,
   },
 
-  {
-    title: 'User',
-    path: '/dashboard/user-page',
-    icon: <LocalPharmacyOutlinedIcon />,
-  },  
+  // {
+  //   title: 'User',
+  //   path: '/dashboard/user-page',
+  //   icon: <LocalPharmacyOutlinedIcon />,
+  // },  
 
   {
     title: 'Price Comparison',
@@ -34,13 +34,13 @@ const navConfig = [
     icon: <PaymentsOutlinedIcon />,
   },
   {
-    title: 'Uses',
-    path: '/dashboard/blog',
+    title: 'Recommendation',
+    path: '/dashboard/recommendation',
     icon: <ManageSearchOutlinedIcon />,
   },
   {
     title: 'Profile',
-    path: '/login',
+    path: '/dashboard/profile',
     icon: <Person2OutlinedIcon />,
   },
 ];

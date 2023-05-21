@@ -4,7 +4,8 @@ import DashboardLayout from './layouts/dashboard';
 import Page404 from './pages/dashboard/Page404';
 import DashboardAppPage from './pages/dashboard/DashboardAppPage';
 import FormulaComparison from './pages/dashboard/FormulaComparison';
-import PriceComparison from './pages/dashboard/PriceComparison';
+import Profile from './pages/dashboard/Profile';
+import Recommendation from './pages/dashboard/Recommendation';
 
 import Home from './pages/landing/Home';
 import UserPage from './pages/dashboard/UserPage';
@@ -29,8 +30,9 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'formula-comparison', element: <FormulaComparison /> },
-        { path: 'price-comparison', element: <PriceComparison/> },
-        { path: 'user-page', element: <UserPage/> },
+        { path: 'price-comparison', element: <UserPage/> },
+        { path: 'recommendation', element: <Recommendation/> },
+        { path: 'profile', element: <Profile/> },
       ],
     },
     {
