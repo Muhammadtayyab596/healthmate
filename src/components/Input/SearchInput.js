@@ -28,10 +28,12 @@ const InputSearch = styled(OutlinedInput)(({ theme }) => ({
 }));
 
 
-const SearchInput = () => {
+const SearchInput = ({ onChange , value }) => {
     return (
         <InputSearch
             placeholder="Search user..."
+            onChange={onChange}
+            value={value}
             startAdornment={
                 <InputAdornment position="start">
                     <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />

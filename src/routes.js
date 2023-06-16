@@ -6,6 +6,7 @@ import DashboardAppPage from './pages/dashboard/DashboardAppPage';
 import FormulaComparison from './pages/dashboard/FormulaComparison';
 import Profile from './pages/dashboard/Profile';
 import Recommendation from './pages/dashboard/Recommendation';
+import MedicineDetail from './pages/dashboard/MedicineDetail';
 
 import Home from './pages/landing/Home';
 import UserPage from './pages/dashboard/UserPage';
@@ -18,31 +19,39 @@ import GuestGard from './pages/auth/GuestGard';
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const { isLogin } = useSelector((state) => state.authreducer)
+  const { isLogin } = useSelector((state) => state.authreducer);
   const routes = useRoutes([
     {
       path: '/dashboard',
-      element:
+      element: (
         <AuthGuard isAuthenticated={isLogin}>
           <DashboardLayout />
-        </AuthGuard>,
+        </AuthGuard>
+      ),
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
-        { path: 'formula-comparison', element: <FormulaComparison /> },
-        { path: 'price-comparison', element: <UserPage/> },
-        { path: 'recommendation', element: <Recommendation/> },
-        { path: 'profile', element: <Profile/> },
+        {
+          path: 'formula-comparison',
+          element: <FormulaComparison />,
+        },
+        {
+          path: 'formula-comparison/:id',
+          element: <MedicineDetail />,
+        },
+        { path: 'price-comparison', element: <UserPage /> },
+        { path: 'recommendation', element: <Recommendation /> },
+        { path: 'profile', element: <Profile /> },
       ],
     },
     {
       path: '/login',
-      element: <GuestGard isAuthenticated={isLogin}>
-        <Login />
-      </GuestGard>,
-       children: [
-        { element: <Navigate to="/login" />, index: true },
-      ],
+      element: (
+        <GuestGard isAuthenticated={isLogin}>
+          <Login />
+        </GuestGard>
+      ),
+      children: [{ element: <Navigate to="/login" />, index: true }],
     },
     {
       path: '/',
@@ -66,11 +75,11 @@ export default function Router() {
     // },
     {
       path: '*',
-      element: <Navigate to="/404" replace />
+      element: <Navigate to="/404" replace />,
     },
     {
       path: '/404',
-      element: <Page404 />
+      element: <Page404 />,
     },
   ]);
 

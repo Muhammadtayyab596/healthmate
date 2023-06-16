@@ -7,7 +7,6 @@ import MailLockOutlinedIcon from '@mui/icons-material/MailLockOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import LanguageIcon from '@mui/icons-material/Language';
-import Iconify from "../../components/iconify/Iconify";
 import avatarImage from "../../assets/Images/avatar.png"
 
 
