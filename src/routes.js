@@ -7,6 +7,7 @@ import FormulaComparison from './pages/dashboard/FormulaComparison';
 import Profile from './pages/dashboard/Profile';
 import Recommendation from './pages/dashboard/Recommendation';
 import MedicineDetail from './pages/dashboard/MedicineDetail';
+import RecommendationDeatil from './pages/dashboard/RecommendationDeatil';
 
 import Home from './pages/landing/Home';
 import UserPage from './pages/dashboard/UserPage';
@@ -20,6 +21,8 @@ import GuestGard from './pages/auth/GuestGard';
 
 export default function Router() {
   const { isLogin } = useSelector((state) => state.authreducer);
+  const { user } = useSelector((state) => state.authreducer);
+  console.log(user, 'user');
   const routes = useRoutes([
     {
       path: '/dashboard',
@@ -39,8 +42,11 @@ export default function Router() {
           path: 'formula-comparison/:id',
           element: <MedicineDetail />,
         },
+
         { path: 'price-comparison', element: <UserPage /> },
         { path: 'recommendation', element: <Recommendation /> },
+        { path: 'recommendation/:id', element: <RecommendationDeatil /> },
+
         { path: 'profile', element: <Profile /> },
       ],
     },

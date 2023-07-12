@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -9,8 +10,6 @@ import Iconify from '../../../components/iconify';
 //
 import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
-import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +42,8 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+  const { user } = useSelector((state) => state.authreducer);
+
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -68,8 +69,9 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <LanguagePopover />
-          <NotificationsPopover />
+          <Typography sx={{ color: '#000', fontWeight: 'bold', fontSize: '16px' }}>{user.email}</Typography>
+          {/* <LanguagePopover /> */}
+          {/* <NotificationsPopover /> */}
           <AccountPopover />
         </Stack>
       </StyledToolbar>

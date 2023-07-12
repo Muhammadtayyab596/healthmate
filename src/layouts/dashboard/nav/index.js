@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
@@ -38,6 +40,12 @@ Nav.propTypes = {
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
   const isDesktop = useResponsive('up', 'lg');
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch({
+      type: 'LOGOUT_USER',
+    });
+  };
 
   useEffect(() => {
     if (openNav) {
@@ -81,11 +89,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <Box sx={{ p: 2.5, pb: 3, mt: 10 }}>
         <Stack spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-          <CustomButton
-            text="Logout"
-            fullWidth
-            variant="contained"
-          />
+          <CustomButton onClick={() => handleLogout()} text="Logout" fullWidth variant="contained" />
         </Stack>
       </Box>
     </Scrollbar>
@@ -97,7 +101,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV_WIDTH },
-        bgcolor :"red"
+        bgcolor: 'red',
       }}
     >
       {isDesktop ? (
