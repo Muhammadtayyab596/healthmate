@@ -1,10 +1,14 @@
 import { Helmet } from 'react-helmet-async';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Box, Button } from '@mui/material';
 // components
 import Iconify from '../../components/iconify';
+import image from '../../assets/Images/medine-img.png';
 // sections
 import {
   AppTasks,
@@ -21,37 +25,59 @@ import {
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+  const { user } = useSelector((state) => state.authreducer);
+  const navigate = useNavigate();
+  const handleCLick = () => {
+    navigate(`/dashboard/formula-comparison`);
+  };
   const theme = useTheme();
 
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | Healht Mate </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi, Welcome {user && user?.username}
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+          <Grid item xs={12} sm={6} md={9}>
+            <Box sx={{ background: '#D1E9FC', px: 5, py: 4, borderRadius: '16px' }}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} sm={8} md={4} lg={8}>
+                  <Typography variant="h4" color="#04297A">
+                    Alternative Medicine Guide
+                  </Typography>
+                  <Typography sx={{ my: 2, fontWeight: 500, fontSize: '15px' }}>
+                    Our website's comparison tool provides detailed information on medications, including formula, name,
+                    uses, and potential side effects.
+                  </Typography>
+                  <Button
+                    sx={{
+                      background: 'linear-gradient(180deg, #528AC8 0%, #322B80 100%)',
+                      fontWeight: 500,
+                    }}
+                    variant="contained"
+                    onClick={() => handleCLick()}
+                  >
+                    Start now
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <img src={image} alt="medicine" />
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="Total Medicine" total={18495} color="info" icon={'mdi:medicine'} />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
@@ -89,16 +115,35 @@ export default function DashboardAppPage() {
                 },
               ]}
             />
+          </Grid> */}
+
+          <Grid item xs={12} md={6} lg={8}>
+            <AppConversionRates
+              title="Disease Rates"
+              subheader="Last two months"
+              chartData={[
+                { label: 'Ibuprofen', value: 400 },
+                { label: 'Norumn', value: 430 },
+                { label: 'Paracetamol', value: 448 },
+                { label: 'panadol', value: 470 },
+                { label: 'Softin', value: 540 },
+                { label: 'Fexet', value: 580 },
+                { label: 'Cebosh', value: 690 },
+                { label: 'Acaabel', value: 1100 },
+                { label: 'Amoxicillin', value: 1200 },
+                { label: 'Paracetamol', value: 1380 },
+              ]}
+            />
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
-              title="Current Visits"
+              title="Current Medicine Used"
               chartData={[
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
+                { label: 'Ibuprofen', value: 4344 },
+                { label: 'Paracetamol', value: 5435 },
+                { label: 'Atorvastatin', value: 1443 },
+                { label: 'Amoxicillin', value: 4443 },
               ]}
               chartColors={[
                 theme.palette.primary.main,
@@ -109,26 +154,7 @@ export default function DashboardAppPage() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates
-              title="Conversion Rates"
-              subheader="(+43%) than last year"
-              chartData={[
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
-              ]}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Current Subject"
               chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
@@ -139,7 +165,7 @@ export default function DashboardAppPage() {
               ]}
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
-          </Grid>
+          </Grid> */}
 
           {/* <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate

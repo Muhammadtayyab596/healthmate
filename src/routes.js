@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DashboardLayout from './layouts/dashboard';
+import SimpleLayout from './layouts/simple';
 import Page404 from './pages/dashboard/Page404';
 import DashboardAppPage from './pages/dashboard/DashboardAppPage';
 import FormulaComparison from './pages/dashboard/FormulaComparison';
@@ -21,8 +22,8 @@ import GuestGard from './pages/auth/GuestGard';
 
 export default function Router() {
   const { isLogin } = useSelector((state) => state.authreducer);
-  const { user } = useSelector((state) => state.authreducer);
-  console.log(user, 'user');
+  // const { user } = useSelector((state) => state.authreducer);
+  // console.log(user, 'user');
   const routes = useRoutes([
     {
       path: '/dashboard',
@@ -60,16 +61,21 @@ export default function Router() {
       children: [{ element: <Navigate to="/login" />, index: true }],
     },
     {
-      path: '/',
-      element: <Home />,
-    },
-    {
-      path: 'about',
-      element: <About />,
-    },
-    {
       path: 'Sign-up',
       element: <Signup />,
+    },
+
+    {
+      element: <SimpleLayout />,
+      children: [
+        { element: <Navigate to="/dashboard/app" />, index: true },
+        { path: '404', element: <Page404 /> },
+        { path: '*', element: <Navigate to="/404" /> },
+      ],
+    },
+    {
+      path: '*',
+      element: <Navigate to="/404" replace />,
     },
     // {
     //   element: <SimpleLayout />,
@@ -79,14 +85,14 @@ export default function Router() {
     //     { path: '*', element: <Navigate to="/404" /> },
     //   ],
     // },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-    {
-      path: '/404',
-      element: <Page404 />,
-    },
+    // {
+    //   path: '*',
+    //   element: <Navigate to="/404" replace />,
+    // },
+    // {
+    //   path: '/404',
+    //   element: <Page404 />,
+    // },
   ]);
 
   return routes;

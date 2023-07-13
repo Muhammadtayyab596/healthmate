@@ -1,17 +1,18 @@
 import React from 'react';
-import { Breadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs, Typography, Link as MuiLink } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Custumbreadcrumbs = (props) => {
   return (
     <>
       <div role="presentation">
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/dashboard/app">
+          <MuiLink style={{ color: '#212B36', textDecoration: 'none' }} color="inherit" href="https://www.google.com/">
             Home
-          </Link>
-          <Link underline="hover" color="inherit" href="/dashboard/app">
+          </MuiLink>
+          <RouterLink style={{ color: '#212B36', textDecoration: 'none' }} color="inherit" to="/dashboard/app">
             Dashboard
-          </Link>
+          </RouterLink>
           <Typography color="text.primary">{props.breadcrumbsName}</Typography>
         </Breadcrumbs>
       </div>

@@ -8,12 +8,10 @@ import Router from './routes';
 import ThemeProvider from './theme';
 // components
 
-import "./App.css"
+import './App.css';
 import ScrollToTop from './components/scroll-to-top';
 import { StyledChart } from './components/chart';
 import { getProfileData } from './services/authServices';
-
-
 
 // ----------------------------------------------------------------------
 
@@ -23,41 +21,38 @@ export default function App() {
 
   useEffect(() => {
     // setTimeout(() => setloading(false), 2000)
-    setloading(true)
-    const userId = localStorage.getItem("userUid")
-    const accessToken = localStorage.getItem("accessToken")
-    console.log(accessToken)
+    setloading(true);
+    const userId = localStorage.getItem('userUid');
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(accessToken);
     if (accessToken) {
       getProfileData(userId)
         .then((res) => {
-          const userData = res.data()
-          setloading(false)
+          const userData = res.data();
+          setloading(false);
           dispatch({
-            type: "LOGIN_USER",
+            type: 'LOGIN_USER',
             payload: userData,
-          })
+          });
         })
         .catch((error) => {
-          setloading(false)
-          console.log(error)
-        })
-    }else{
-      setloading(false)
+          setloading(false);
+          console.log(error);
+        });
+    } else {
+      setloading(false);
     }
-
   }, []);
 
-  return (
-    loading ? (
-      <Box sx={{ display: 'flex' }}>
-        <CircularProgress />
-      </Box>
-    ) : (
-      <ThemeProvider>
-        <ScrollToTop />
-        <StyledChart />
-        <Router />
-      </ThemeProvider>
-    )
+  return loading ? (
+    <Box sx={{ display: 'flex', width: '100%', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  ) : (
+    <ThemeProvider>
+      <ScrollToTop />
+      <StyledChart />
+      <Router />
+    </ThemeProvider>
   );
 }

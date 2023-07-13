@@ -74,9 +74,6 @@ export default function UserPage() {
           <Typography variant="h3" gutterBottom>
             Price Variation
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            Recommendation
-          </Button>
         </Stack>
         <Custumbreadcrumbs breadcrumbsName={'Price'} />
         <Card
@@ -124,7 +121,7 @@ export default function UserPage() {
               }}
             >
               <SearchIcon />
-              <Typography variant="p">Search your medicine here</Typography>
+              <Typography variant="p">See your medicines Price here</Typography>
             </Box>
           )}
         </Card>

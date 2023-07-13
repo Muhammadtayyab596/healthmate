@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box, Link } from '@mui/material';
-import logoImg from "../../assets/Images/logo-01.png"
+import logoImg from '../../assets/Images/logo-01.png';
 
 // ----------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
         </g>
       </svg> */}
 
-      <img src={logoImg} alt="logo"/>
+      <img src={logoImg} alt="logo" />
     </Box>
   );
 
@@ -82,7 +82,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   }
 
   return (
-    <Link to="/" component={RouterLink} sx={{ display: 'contents' }}>
+    <Link to="/dashboard/app" component={RouterLink} sx={{ display: 'contents' }}>
       {logo}
     </Link>
   );

@@ -62,7 +62,7 @@ function Recommendation() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h3" gutterBottom>
-            Medicine Recommendation
+            Recommendation
           </Typography>
         </Stack>
         <Custumbreadcrumbs breadcrumbsName={'recommendation'} />

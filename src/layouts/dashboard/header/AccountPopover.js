@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover, Button } from '@mui/material';
 // mocks_
 import account from '../../../_mock/account';
 
@@ -37,6 +37,10 @@ export default function AccountPopover() {
 
   const handleClose = () => {
     setOpen(null);
+  };
+
+  const handleClick = () => {
+    // console.log('first');
     dispatch({
       type: 'LOGOUT_USER',
     });
@@ -94,7 +98,9 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
         <MenuItem onClick={handleClose} sx={{ m: 1 }}>
-          Logout
+          <Button fullWidth onClick={handleClick}>
+            Logout
+          </Button>
         </MenuItem>
       </Popover>
     </>
